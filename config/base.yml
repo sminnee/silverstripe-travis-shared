@@ -120,10 +120,11 @@ script:
   # BEHAT
   - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_SUITE; fi
 
-  # PHPCS
+  # PHPCS and PHPSTAND
   - if [[ $PHPCS_TEST && -f phpcs.xml.dist ]]; then vendor/bin/phpcs; fi
+  - if [[ $PHPCS_TEST && -f phpstan.neon.dist ]]; then vendor/bin/phpstan analyse; fi
 
-  # NPM
+# NPM
   - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
   - if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi
   - if [[ $NPM_TEST ]]; then yarn run test; fi
